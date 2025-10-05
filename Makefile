@@ -24,22 +24,16 @@ clean:
 # ==============
 
 .PHONY: release
-VERSION?=minor
-# target: release - Bump version
+# target: release - Bump version using semantic-release
 release:
-	@uv run bump2version $(VERSION)
-	@git checkout master
-	@git merge develop
-	@git checkout develop
-	@git push origin master develop
+	@uv run semantic-release version
+	@git push
 	@git push --tags
 
-.PHONY: minor
-minor: release
-
-.PHONY: patch
-patch:
-	make release VERSION=patch
+.PHONY: version-check
+# target: version-check - Preview next version without making changes
+version-check:
+	@uv run semantic-release version --print
 
 
 # ===============
