@@ -5,12 +5,14 @@ from datetime import datetime
 
 
 pytestmark = pytest.mark.skipif(
-    sys.version_info >= (3, 10), reason='pony ORM doesnt support python 3.10')
+    sys.version_info >= (3, 10), reason="pony ORM doesnt support python 3.10"
+)
 
 
 def test_backend():
     from forkmixer.backend.pony import forkmixer
-    assert mixer
+
+    assert forkmixer
 
 
 def test_mixer():
@@ -69,24 +71,23 @@ def test_mixer():
     db.generate_mapping(create_tables=True)
 
     with orm.db_session:
-
-        customer = mixer.blend(Customer)
+        customer = forkmixer.blend(Customer)
         assert customer.name
         assert customer.email
 
-        product = mixer.blend(Product)
+        product = forkmixer.blend(Product)
         assert product.price
 
-        order = mixer.blend(Order)
+        order = forkmixer.blend(Order)
         assert order.customer
 
-        orderitem = mixer.blend(OrderItem, product=product)
+        orderitem = forkmixer.blend(OrderItem, product=product)
         assert orderitem.quantity == 1
         assert orderitem.order
 
-        order = mixer.blend(Order, customer__name='John Snow')
-        assert order.customer.name == 'John Snow'
+        order = forkmixer.blend(Order, customer__name="John Snow")
+        assert order.customer.name == "John Snow"
 
-        with mixer.ctx(commit=True):
-            order = mixer.blend(Order)
+        with forkmixer.ctx(commit=True):
+            order = forkmixer.blend(Order)
             assert order.id

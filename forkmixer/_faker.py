@@ -1,4 +1,5 @@
-""" Integrate Faker to the Mixer. """
+"""Integrate Faker to the Mixer."""
+
 import decimal as dc
 import locale as pylocale
 from collections import defaultdict
@@ -10,16 +11,52 @@ from faker.providers import BaseProvider
 
 SMALLINT = 32767  # Safe in most databases according to Django docs
 
-GENRES = ('general', 'pop', 'dance', 'traditional', 'rock', 'alternative', 'rap', 'country',
-          'jazz', 'gospel', 'latin', 'reggae', 'comedy', 'historical', 'action', 'animation',
-          'documentary', 'family', 'adventure', 'fantasy', 'drama', 'crime', 'horror', 'music',
-          'mystery', 'romance', 'sport', 'thriller', 'war', 'western', 'fiction', 'epic',
-          'tragedy', 'parody', 'pastoral', 'culture', 'art', 'dance', 'drugs', 'social')
+GENRES = (
+    "general",
+    "pop",
+    "dance",
+    "traditional",
+    "rock",
+    "alternative",
+    "rap",
+    "country",
+    "jazz",
+    "gospel",
+    "latin",
+    "reggae",
+    "comedy",
+    "historical",
+    "action",
+    "animation",
+    "documentary",
+    "family",
+    "adventure",
+    "fantasy",
+    "drama",
+    "crime",
+    "horror",
+    "music",
+    "mystery",
+    "romance",
+    "sport",
+    "thriller",
+    "war",
+    "western",
+    "fiction",
+    "epic",
+    "tragedy",
+    "parody",
+    "pastoral",
+    "culture",
+    "art",
+    "dance",
+    "drugs",
+    "social",
+)
 
 
 class MixerProvider(BaseProvider):
-
-    """ Implement some mixer methods. """
+    """Implement some mixer methods."""
 
     def __init__(self, generator):
         self.providers = []
@@ -32,10 +69,11 @@ class MixerProvider(BaseProvider):
         for pname in providers:
             # Try to import localized provider first, then fall back to base
             import importlib
+
             lang_found = locale
             try:
                 # Try with locale (e.g., 'faker.providers.address.en_US')
-                localized_module_name = f'{pname}.{locale}'
+                localized_module_name = f"{pname}.{locale}"
                 module = importlib.import_module(localized_module_name)
             except ImportError:
                 # Fall back to base provider (e.g., 'faker.providers.address')
@@ -44,8 +82,8 @@ class MixerProvider(BaseProvider):
                     lang_found = None
                 except ImportError:
                     continue
-            
-            if hasattr(module, 'Provider'):
+
+            if hasattr(module, "Provider"):
                 pcls = module.Provider
                 provider = pcls(self.generator)
                 provider.__provider__ = pname
@@ -53,7 +91,7 @@ class MixerProvider(BaseProvider):
                 self.generator.add_provider(provider)
 
     def big_integer(self):
-        """ Get a big integer.
+        """Get a big integer.
 
         Get integer from -9223372036854775808 to 9223372036854775807.
 
@@ -61,51 +99,54 @@ class MixerProvider(BaseProvider):
         return self.generator.random_int(-9223372036854775808, 9223372036854775807)
 
     def ip_generic(self, protocol=None):
-        """ Get IP (v4 or v6) address.
+        """Get IP (v4 or v6) address.
 
         :param protocol:
             Set protocol to 'ipv4' or 'ipv6'. Generate either IPv4 or
             IPv6 address if none.
 
         """
-        if protocol == 'ipv4':
+        if protocol == "ipv4":
             return self.generator.ipv4()
 
-        if protocol == 'ipv6':
+        if protocol == "ipv6":
             return self.generator.ipv6()
 
-        return self.generator.ipv4() if self.generator.boolean() else self.generator.ipv6()
+        return (
+            self.generator.ipv4() if self.generator.boolean() else self.generator.ipv6()
+        )
 
     def small_decimal(self, left_digits=None, right_digits=None, **kwargs):
         return self.generator.pydecimal(
             left_digits=left_digits or randint(1, 10),
             right_digits=right_digits or randint(1, 10),
-            **kwargs)
+            **kwargs,
+        )
 
     def positive_decimal(self, **kwargs):
-        """ Get a positive decimal. """
+        """Get a positive decimal."""
         return self.small_decimal(positive=True, **kwargs)
 
     def positive_integer(self, max=2147483647):  # noqa
-        """ Get a positive integer. """
+        """Get a positive integer."""
         return self.random_int(0, max=max)  # noqa
 
     def small_integer(self, min=-SMALLINT, max=SMALLINT):  # noqa
-        """ Get a positive integer. """
+        """Get a positive integer."""
         return self.random_int(min=min, max=max)  # noqa
 
     def small_positive_integer(self, max=SMALLINT):  # noqa
-        """ Get a positive integer. """
+        """Get a positive integer."""
         return self.random_int(0, max=max)  # noqa
 
     @staticmethod
     def uuid():
         import uuid
+
         return str(uuid.uuid1())
 
     def json(self):
-        """Generate random dict with str keys and int values.
-        """
+        """Generate random dict with str keys and int values."""
         return dict((self.pystr(), self.random_int()) for _ in range(10))
 
     def genre(self):
@@ -115,7 +156,7 @@ class MixerProvider(BaseProvider):
         return self.random_int(0, 100)
 
     def percent_decimal(self):
-        return dc.Decimal("0.%d" % self.random_int(0, 99)) + dc.Decimal('0.01')
+        return dc.Decimal("0.%d" % self.random_int(0, 99)) + dc.Decimal("0.01")
 
     def title(self):
         words = self.generator.words(6)
@@ -125,12 +166,11 @@ class MixerProvider(BaseProvider):
         return (self.generator.latitude(), self.generator.longitude())
 
     def pybytes(self, size=20):
-        return self.pystr(size).encode('utf-8')
+        return self.pystr(size).encode("utf-8")
 
 
 class MixerGenerator(Generator):
-
-    """ Support dynamic locales switch. """
+    """Support dynamic locales switch."""
 
     def __init__(self, locale=DEFAULT_LOCALE, providers=PROVIDERS, **config):
         self._locale = None
@@ -159,7 +199,7 @@ class MixerGenerator(Generator):
 
     @locale.setter
     def locale(self, value):
-        value = pylocale.normalize(value.replace('-', '_')).split('.')[0]
+        value = pylocale.normalize(value.replace("-", "_")).split(".")[0]
         if value not in AVAILABLE_LOCALES:
             value = DEFAULT_LOCALE
 
