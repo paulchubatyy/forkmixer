@@ -50,7 +50,7 @@ Requirements
 =============
 
 - Python 3.7+
-- Django (3.0, 3.1) for Django ORM support;
+- Django (5.1+) for Django ORM support;
 - Flask-SQLALchemy for SQLAlchemy ORM support and integration as Flask application;
 - Faker >= 0.7.3
 - Mongoengine for Mongoengine ODM support;
