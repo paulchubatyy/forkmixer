@@ -2,7 +2,7 @@
 
 ::
 
-    from mixer.backend.peewee import mixer
+    from forkmixer.backend.peewee import forkmixer
 
 """
 from __future__ import absolute_import

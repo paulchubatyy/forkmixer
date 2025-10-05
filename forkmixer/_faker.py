@@ -3,7 +3,7 @@ import decimal as dc
 import locale as pylocale
 from collections import defaultdict
 
-from faker import Factory, Generator
+from faker import Generator
 from random import randint
 from faker.config import DEFAULT_LOCALE, AVAILABLE_LOCALES, PROVIDERS
 from faker.providers import BaseProvider
@@ -30,11 +30,27 @@ class MixerProvider(BaseProvider):
             locale = self.generator.locale
 
         for pname in providers:
-            pcls, lang_found = Factory._get_provider_class(pname, locale)
-            provider = pcls(self.generator)
-            provider.__provider__ = pname
-            provider.__lang__ = lang_found
-            self.generator.add_provider(provider)
+            # Try to import localized provider first, then fall back to base
+            import importlib
+            lang_found = locale
+            try:
+                # Try with locale (e.g., 'faker.providers.address.en_US')
+                localized_module_name = f'{pname}.{locale}'
+                module = importlib.import_module(localized_module_name)
+            except ImportError:
+                # Fall back to base provider (e.g., 'faker.providers.address')
+                try:
+                    module = importlib.import_module(pname)
+                    lang_found = None
+                except ImportError:
+                    continue
+            
+            if hasattr(module, 'Provider'):
+                pcls = module.Provider
+                provider = pcls(self.generator)
+                provider.__provider__ = pname
+                provider.__lang__ = lang_found
+                self.generator.add_provider(provider)
 
     def big_integer(self):
         """ Get a big integer.

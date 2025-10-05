@@ -72,7 +72,7 @@ db.init_app(app)
 
 
 def test_base():
-    from mixer.backend.flask import Mixer
+    from forkmixer.backend.flask import Mixer
 
     mixer = Mixer(commit=True)
     mixer.init_app(app)
@@ -133,7 +133,7 @@ def test_base():
 
 
 def test_default_mixer():
-    from mixer.backend.flask import mixer
+    from forkmixer.backend.flask import forkmixer
 
     test = mixer.blend(User)
     assert test.username

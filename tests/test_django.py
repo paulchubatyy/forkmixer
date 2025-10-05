@@ -7,7 +7,7 @@ import pytest
 from django.core.management import call_command
 
 from .django_app.models import Rabbit, models, Hole, Door, Customer, Simple, Client, Tag, Message
-from mixer.backend.django import Mixer
+from forkmixer.backend.django import Mixer
 
 
 @pytest.fixture(autouse=True)
@@ -18,7 +18,7 @@ def mixer(request):
 
 
 def test_base():
-    from mixer.backend.django import mixer
+    from forkmixer.backend.django import forkmixer
 
     simple = mixer.blend('django_app.simple')
     assert isinstance(simple.value, int)
@@ -79,7 +79,7 @@ def test_custom(mixer):
     assert isinstance(rabbit.percent, float)
     assert rabbit.title == 'Mr. Rabbit'
 
-    from mixer.backend.django import GenFactory
+    from forkmixer.backend.django import GenFactory
 
     def getter(*args, **kwargs):
         return "Always same"

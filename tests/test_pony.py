@@ -9,13 +9,13 @@ pytestmark = pytest.mark.skipif(
 
 
 def test_backend():
-    from mixer.backend.pony import mixer
+    from forkmixer.backend.pony import forkmixer
     assert mixer
 
 
 def test_mixer():
     from pony import orm
-    from mixer.backend.pony import mixer
+    from forkmixer.backend.pony import forkmixer
 
     db = orm.Database("sqlite", ":memory:", create_db=True)
 

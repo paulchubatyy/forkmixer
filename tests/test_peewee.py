@@ -33,7 +33,7 @@ Pet.create_table()
 
 @pytest.fixture
 def mixer():
-    from mixer.backend.peewee import mixer
+    from forkmixer.backend.peewee import forkmixer
     return mixer
 
 

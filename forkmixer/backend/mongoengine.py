@@ -4,7 +4,7 @@
 
 ::
 
-    from mixer.backend.mongoengine import mixer
+    from forkmixer.backend.mongoengine import forkmixer
 
     class User(Document):
         created_at = DateTimeField(default=datetime.datetime.now)
@@ -262,13 +262,13 @@ class Mixer(BaseMixer):
     Default mixer (desnt save a generated instances to db)
     ::
 
-        from mixer.backend.mongoengine import mixer
+        from forkmixer.backend.mongoengine import forkmixer
 
         user = mixer.blend(User)
 
     You can initialize the Mixer by manual:
     ::
-        from mixer.backend.mongoengine import Mixer
+        from forkmixer.backend.mongoengine import Mixer
 
         mixer = Mixer(commit=True)
         user = mixer.blend(User)

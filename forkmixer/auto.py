@@ -10,7 +10,7 @@ class MixerProxy(object):
 
     ::
 
-        from mixer.auto import mixer
+        from forkmixer.auto import forkmixer
 
         django_model_instance = mixer.blend('django.app.models.Model')
         sqlalchemy_model_instance = mixer.blend('sqlalchemy.app.models.Model')

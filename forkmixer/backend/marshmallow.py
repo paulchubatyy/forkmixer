@@ -2,7 +2,7 @@
 
 ::
 
-    from mixer.backend.marshmallow import mixer
+    from forkmixer.backend.marshmallow import forkmixer
 
 
 """

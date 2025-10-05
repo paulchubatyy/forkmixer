@@ -687,7 +687,7 @@ class Mixer(_.with_metaclass(_MetaMixer)):
 
         You could add the middleware layers to generation process: ::
 
-            from mixer.backend.django import mixer
+            from forkmixer.backend.django import forkmixer
 
             # Register middleware to model
             @mixer.middleware('auth.user')

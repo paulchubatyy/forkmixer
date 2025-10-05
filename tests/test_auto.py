@@ -2,14 +2,14 @@ from __future__ import absolute_import
 
 
 def test_main():
-    from mixer.auto import mixer
+    from forkmixer.auto import forkmixer
 
     assert mixer
 
 
 def test_django():
     from django.core.management import call_command
-    from mixer.auto import mixer
+    from forkmixer.auto import forkmixer
 
     from .django_app.models import Rabbit
 
@@ -28,7 +28,7 @@ def test_django():
 
 
 def test_sqlalchemy():
-    from mixer.auto import mixer
+    from forkmixer.auto import forkmixer
     from .test_sqlalchemy import User
 
     user = mixer.blend(User)
@@ -42,10 +42,10 @@ def test_sqlalchemy():
 
 
 def test_mongoengine():
-    from mixer.backend.mongoengine import mixer as m
+    from forkmixer.backend.mongoengine import mixer as m
     m.params['commit'] = False
 
-    from mixer.auto import mixer
+    from forkmixer.auto import forkmixer
 
     from .test_mongoengine import User
 

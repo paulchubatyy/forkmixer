@@ -256,7 +256,7 @@ class Fake(ServiceValue):
 
     ::
 
-        from mixer.backend.django import mixer
+        from forkmixer.backend.django import forkmixer
 
         user = mixer.blend('auth.User', first_name=mixer.FAKE)
         print user.first_name  # Some like: John
@@ -304,7 +304,7 @@ class Random(ServiceValue):
 
     ::
 
-        from mixer.backend.django import mixer
+        from forkmixer.backend.django import forkmixer
 
         mixer.blend('auth.User', first_name=mixer.RANDOM)
         print user.first_name  # Some like: Fdjw4das
@@ -334,14 +334,14 @@ class Select(Random):
 
     Example for Django (select user from exists): ::
 
-        from mixer.backend.django import mixer
+        from forkmixer.backend.django import forkmixer
 
         mixer.generate(Role, user=mixer.SELECT)
 
 
     You can setup a Django or SQLAlchemy filters with `mixer.SELECT`: ::
 
-        from mixer.backend.django import mixer
+        from forkmixer.backend.django import forkmixer
 
         mixer.generate(Role, user=mixer.SELECT(
             username='test'

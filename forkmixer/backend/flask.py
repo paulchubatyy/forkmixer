@@ -2,7 +2,7 @@
 
 See example: ::
 
-    from mixer.backend.flask import mixer
+    from forkmixer.backend.flask import forkmixer
 
     mixer.init_app(flask_app)
 

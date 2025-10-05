@@ -5,7 +5,7 @@ Quickstart
 
 .. contents::
 
-.. currentmodule:: mixer.main
+.. currentmodule:: forkmixer.main
 
 Mixer is easy to use and really fun for testing applications.
 Module has a common api for all backends (Django_, Flask_).
@@ -50,10 +50,10 @@ You can use class or string with model name.
 
 .. code-block:: python
 
-    from mixer.backend.django import mixer
+    from forkmixer.backend.django import mixer
 
     # Generate model's instance and save to db
-    message = mixer.blend('someapp.message')
+    message = forkmixer.blend('someapp.message')
 
     print message.content  # Some like --> necessitatibus voluptates animi molestiae dolores...
 
@@ -62,7 +62,7 @@ You can use class or string with model name.
     print message.client.name  # Some like --> Clark Llandrindod
 
     # Generate a few pieces
-    messages = mixer.cycle(4).blend('someapp.message')
+    messages = forkmixer.cycle(4).blend('someapp.message')
 
 
 Blend models with values
@@ -70,37 +70,37 @@ Blend models with values
 
 .. code-block:: python
 
-    from mixer.backend.django import mixer
+    from forkmixer.backend.django import mixer
 
     # Generate model with some values
-    client = mixer.blend(Client, username='test')
+    client = forkmixer.blend(Client, username='test')
     assert client.username == 'test'
 
     # Generate model with reference
-    message = mixer.blend(Message, client__username='test2')
+    message = forkmixer.blend(Message, client__username='test2')
     assert message.client.username == 'test2'
 
     # Value may be callable
-    client = mixer.blend(Client, username=lambda:'callable_value')
+    client = forkmixer.blend(Client, username=lambda:'callable_value')
     assert client.username == 'callable_value'
 
     # Value may be a generator
-    clients = mixer.cycle(4).blend(Client, username=(name for name in ('Piter', 'John')))
+    clients = forkmixer.cycle(4).blend(Client, username=(name for name in ('Piter', 'John')))
 
     # Value could be getting a counter
-    clients = mixer.cycle(4).blend(Client, username=mixer.sequence(lambda c: "test_%s" % c))
+    clients = forkmixer.cycle(4).blend(Client, username=forkmixer.sequence(lambda c: "test_%s" % c))
     print clients[2].username  # --> 'test_2'
 
     # Short format for string formating
-    clients = mixer.cycle(4).blend(Client, username=mixer.sequence("test_{0}"))
+    clients = forkmixer.cycle(4).blend(Client, username=forkmixer.sequence("test_{0}"))
     print clients[2].username  # --> 'test_2'
 
     # Force to generation of a default (or null) values
-    client = mixer.blend(Client, score=mixer.RANDOM)
+    client = forkmixer.blend(Client, score=forkmixer.RANDOM)
     print client.score  # Some like: --> 456
 
     # Set related values from db by random
-    message = mixer.blend(Message, client=mixer.SELECT)
+    message = forkmixer.blend(Message, client=forkmixer.SELECT)
     assert message.client in Client.objects.all()
 
 .. include:: ../README.rst
@@ -112,10 +112,10 @@ SQLAlchemy ORM
 
 .. code-block:: python
 
-    from mixer.backend.sqlalchemy import mixer
+    from forkmixer.backend.sqlalchemy import mixer
 
     # Generate model's instance and save to db
-    message = mixer.blend('path.to.module.ModelClass')
+    message = forkmixer.blend('path.to.module.ModelClass')
 
     print message.content  # Some like --> necessitatibus voluptates animi molestiae dolores...
 
@@ -124,7 +124,7 @@ SQLAlchemy ORM
     print message.client.name  # Some like --> Clark Llandrindod
 
     # Generate a few pieces
-    messages = mixer.cycle(4).blend('path.to.module.ModelClass')
+    messages = forkmixer.cycle(4).blend('path.to.module.ModelClass')
 
 
 Support for Flask-SQLAlchemy models that have `__init__` arguments
@@ -132,7 +132,7 @@ Support for Flask-SQLAlchemy models that have `__init__` arguments
 
 To support this scheme, just create your own mixer class, like this: ::
 
-    from mixer.backend.sqlalchemy import Mixer
+    from forkmixer.backend.sqlalchemy import Mixer
 
     class MyOwnMixer(Mixer):
 
@@ -146,13 +146,13 @@ To support this scheme, just create your own mixer class, like this: ::
 Flask integration
 -----------------
 
-.. automodule:: mixer.backend.flask
+.. automodule:: forkmixer.backend.flask
 
 
 Mongoengine
 -----------
 
-.. automodule:: mixer.backend.mongoengine
+.. automodule:: forkmixer.backend.mongoengine
 
 
 .. == links ==

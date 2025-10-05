@@ -2,7 +2,7 @@
 
 ::
 
-    from mixer.backend.pony import mixer
+    from forkmixer.backend.pony import forkmixer
 """
 from __future__ import absolute_import
 

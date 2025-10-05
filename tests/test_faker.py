@@ -1,5 +1,5 @@
 def test_faker():
-    from mixer._faker import faker
+    from forkmixer._faker import faker
 
     assert faker.big_integer()
     assert faker.ip_generic()

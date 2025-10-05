@@ -10,34 +10,34 @@ in Mixer.
 Common interface
 ----------------
 
-.. autoclass:: mixer.main.Mixer
+.. autoclass:: forkmixer.main.Mixer
    :members:
    :inherited-members:
 
-.. autoclass:: mixer.main.GenFactory
+.. autoclass:: forkmixer.main.GenFactory
    :members:
 
 
 Set values
 ----------
-.. autoclass:: mixer.mix_types.Field
+.. autoclass:: forkmixer.mix_types.Field
 
 
 Force a random values
 ---------------------
-.. autoclass:: mixer.mix_types.Random
+.. autoclass:: forkmixer.mix_types.Random
 
 
 Force a fake values
 -------------------
-.. autoclass:: mixer.mix_types.Fake
+.. autoclass:: forkmixer.mix_types.Fake
 
 
 Select a relation from database
 -------------------------------
-.. autoclass:: mixer.mix_types.Select
+.. autoclass:: forkmixer.mix_types.Select
 
 
 Virtual mixed object
 --------------------
-.. autoclass:: mixer.mix_types.Mix
+.. autoclass:: forkmixer.mix_types.Mix

@@ -1,17 +1,21 @@
 :orphan:
 
-Welcome to Mixer
-================
+Welcome to ForkMixer
+====================
 
 .. == logo ==
 .. image:: _static/logo.png
     :width: 100
 
-Welcome to Mixer's documentation.
+Welcome to ForkMixer's documentation.
+
+.. note::
+
+   This is a fork of the original `Mixer <https://github.com/klen/mixer>`_ project by Kirill Klenov.
 
 .. == description ==
 .. _description:
-.. automodule:: mixer
+.. automodule:: forkmixer
 
 .. == badges ==
 .. _badges:

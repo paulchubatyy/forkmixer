@@ -38,14 +38,14 @@ class Bookmark(Document):
 
 
 def test_generators():
-    from mixer.backend.mongoengine import get_polygon
+    from forkmixer.backend.mongoengine import get_polygon
 
     polygon = get_polygon()
     assert polygon['coordinates']
 
 
 def test_base():
-    from mixer.backend.mongoengine import Mixer
+    from forkmixer.backend.mongoengine import Mixer
 
     mixer = Mixer(commit=False)
     assert mixer
@@ -60,7 +60,7 @@ def test_base():
 
 
 def test_typemixer():
-    from mixer.backend.mongoengine import TypeMixer
+    from forkmixer.backend.mongoengine import TypeMixer
 
     tm = TypeMixer(Post)
     post = tm.blend(comments=tm.RANDOM, place=tm.RANDOM)
@@ -80,7 +80,7 @@ def test_typemixer():
 
 
 def test_relation():
-    from mixer.backend.mongoengine import Mixer
+    from forkmixer.backend.mongoengine import Mixer
 
     mixer = Mixer(commit=False)
 
@@ -96,7 +96,7 @@ def test_relation():
 
 
 def test_embedded_document_list_field():
-    from mixer.backend.mongoengine import Mixer
+    from forkmixer.backend.mongoengine import Mixer
 
     class NewPost(Post):
         comments = EmbeddedDocumentListField(Comment, required=True)
@@ -109,7 +109,7 @@ def test_embedded_document_list_field():
 
 
 def test_decimal_field_min_value():
-    from mixer.backend.mongoengine import Mixer
+    from forkmixer.backend.mongoengine import Mixer
 
     class NewPost(Post):
         rating = DecimalField(required=True, min_value=0)
@@ -121,7 +121,7 @@ def test_decimal_field_min_value():
 
 
 def test_decimal_field_max_value():
-    from mixer.backend.mongoengine import Mixer
+    from forkmixer.backend.mongoengine import Mixer
 
     class NewPost(Post):
         rating = DecimalField(required=True, max_value=0)

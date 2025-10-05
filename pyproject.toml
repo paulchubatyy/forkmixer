@@ -3,12 +3,13 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "mixer"
-version = "7.2.2"
-description = "Mixer -- Is a fixtures replacement. Supported Django ORM, SqlAlchemy ORM, Mongoengine ODM and custom python objects."
+name = "forkmixer"
+version = "0.1.0"
+description = "ForkMixer -- A fork of Mixer, a fixtures replacement. Supported Django ORM, SqlAlchemy ORM, Mongoengine ODM and custom python objects."
 readme = "README.rst"
 license = {text = "BSD"}
 authors = [
+    {name = "Paul Chubatyy", email = "xobb@citylance.biz"},
     {name = "Kirill Klenov", email = "horneds@gmail.com"}
 ]
 keywords = ["django", "flask", "sqlalchemy", "testing", "mock", "stub", "mongoengine", "data"]
@@ -29,7 +30,7 @@ classifiers = [
 ]
 requires-python = ">=3.7"
 dependencies = [
-    "Faker>=5.4.0,<12.1",
+    "Faker>=5.4.0",
 ]
 
 [project.optional-dependencies]
@@ -49,10 +50,11 @@ postgres = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/klen/mixer"
-Documentation = "https://mixer.readthedocs.org"
-"Source code" = "https://github.com/klen/mixer"
-"Issue tracker" = "https://github.com/klen/mixer"
+Homepage = "https://github.com/paulchubatyy/forkmixer"
+Documentation = "https://github.com/paulchubatyy/forkmixer"
+"Source code" = "https://github.com/paulchubatyy/forkmixer"
+"Issue tracker" = "https://github.com/paulchubatyy/forkmixer/issues"
+"Original Project" = "https://github.com/klen/mixer"
 
 [tool.setuptools]
 zip-safe = false
@@ -60,7 +62,7 @@ include-package-data = true
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["mixer*"]
+include = ["forkmixer*"]
 
 [tool.pytest.ini_options]
 addopts = "-xsv"

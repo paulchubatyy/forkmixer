@@ -83,7 +83,7 @@ def session():
 
 
 def test_typemixer():
-    from mixer.backend.sqlalchemy import TypeMixer
+    from forkmixer.backend.sqlalchemy import TypeMixer
 
     mixer = TypeMixer(User)
     user = mixer.blend()
@@ -111,7 +111,7 @@ def test_typemixer():
 
 
 def test_mixer(session):
-    from mixer.backend.sqlalchemy import Mixer
+    from forkmixer.backend.sqlalchemy import Mixer
 
     mixer = Mixer(session=session, commit=True)
     p = mixer.blend('tests.test_sqlalchemy.ProfileNonIncremental', id=5)
@@ -136,7 +136,7 @@ def test_mixer(session):
 
 
 def test_cycle(session):
-    from mixer.backend.sqlalchemy import Mixer
+    from forkmixer.backend.sqlalchemy import Mixer
 
     mixer = Mixer(session=session, commit=True)
     profile1 = mixer.blend('tests.test_sqlalchemy.Profile', name='first')
@@ -148,7 +148,7 @@ def test_cycle(session):
 
 
 def test_select(session):
-    from mixer.backend.sqlalchemy import Mixer
+    from forkmixer.backend.sqlalchemy import Mixer
 
     mixer = Mixer(session=session, commit=True)
 
@@ -162,7 +162,7 @@ def test_select(session):
 
 
 def test_random():
-    from mixer.backend.sqlalchemy import mixer
+    from forkmixer.backend.sqlalchemy import forkmixer
 
     values = ('mixer', 'is', 'fun')
     user = mixer.blend(User, name=mixer.RANDOM(*values))
@@ -170,14 +170,14 @@ def test_random():
 
 
 def test_default_mixer():
-    from mixer.backend.sqlalchemy import mixer
+    from forkmixer.backend.sqlalchemy import forkmixer
 
     test = mixer.blend(User)
     assert test.name
 
 
 def test_guard(session):
-    from mixer.backend.sqlalchemy import Mixer, mixer
+    from forkmixer.backend.sqlalchemy import Mixer, mixer
 
     with pytest.raises(ValueError):
         mixer.guard(User.name == 'maxi').blend(User)
@@ -191,7 +191,7 @@ def test_guard(session):
 
 
 def test_reload(session):
-    from mixer.backend.sqlalchemy import Mixer
+    from forkmixer.backend.sqlalchemy import Mixer
 
     mixer = Mixer(session=session, commit=True)
 
@@ -203,7 +203,7 @@ def test_reload(session):
 
 
 def test_mix22(session):
-    from mixer.backend.sqlalchemy import Mixer
+    from forkmixer.backend.sqlalchemy import Mixer
 
     mixer = Mixer(session=session, commit=True)
     role = mixer.blend(Role, name=mixer.MIX.user.name)
@@ -211,14 +211,14 @@ def test_mix22(session):
 
 
 def test_nonincremental_primary_key(session):
-    from mixer.backend.sqlalchemy import mixer
+    from forkmixer.backend.sqlalchemy import forkmixer
 
     test = mixer.blend(ProfileNonIncremental, id=42)
     assert test.name
 
 
 def test_postgresql():
-    from mixer.backend.sqlalchemy import TypeMixer
+    from forkmixer.backend.sqlalchemy import TypeMixer
     from sqlalchemy.dialects.postgresql import UUID, JSONB
 
     base = declarative_base()
@@ -243,6 +243,6 @@ def test_postgresql():
     (sqlite.dialect(), 'RANDOM()'),
 ])
 def test_random_compiled(dialect, expected):
-    from mixer.backend.sqlalchemy import random
+    from forkmixer.backend.sqlalchemy import random
     compiled = random().compile(dialect=dialect)
     assert text_type(compiled) == expected

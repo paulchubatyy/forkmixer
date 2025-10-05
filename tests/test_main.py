@@ -4,7 +4,7 @@ import datetime
 import pytest
 from decimal import Decimal
 
-from mixer.main import Mixer, TypeMixer
+from forkmixer.main import Mixer, TypeMixer
 
 
 class Test:
@@ -24,7 +24,7 @@ class Test:
 
 def test_factory():
     """ Test base generator's factory. """
-    from mixer.main import GenFactory
+    from forkmixer.main import GenFactory
 
     g = GenFactory()
     test = g.get_fabric(int)
@@ -66,7 +66,7 @@ def test_typemixer():
 
 
 def test_fake():
-    from mixer.main import mixer
+    from forkmixer.main import forkmixer
 
     test = mixer.blend(Test, name=mixer.FAKE, title=mixer.FAKE)
     assert ' ' in test.name
@@ -77,7 +77,7 @@ def test_fake():
 
 
 def test_random():
-    from mixer._compat import string_types
+    from forkmixer._compat import string_types
 
     mixer = TypeMixer(Test)
     test = mixer.blend(name=mixer.RANDOM)
@@ -92,7 +92,7 @@ def test_random():
 
 
 def test_mix():
-    from mixer.main import mixer
+    from forkmixer.main import forkmixer
 
     lama = type('One', tuple(), dict(
         two=int,
@@ -162,21 +162,21 @@ def test_mixer_cycle():
 
 
 def test_mixer_default():
-    from mixer.main import mixer
+    from forkmixer.main import forkmixer
 
     test = mixer.blend(Test)
     assert test.name
 
 
 def test_invalid_scheme():
-    from mixer.main import mixer
+    from forkmixer.main import forkmixer
 
     with pytest.raises(ValueError):
         mixer.blend('tests.test_main.Unknown')
 
 
 def test_sequence():
-    from mixer.main import mixer
+    from forkmixer.main import forkmixer
 
     gen = mixer.sequence()
     assert next(gen) == 0
@@ -216,7 +216,7 @@ def test_custom():
     assert isinstance(test.one, float)
     assert isinstance(test.body, datetime.datetime)
 
-    from mixer.main import GenFactory
+    from forkmixer.main import GenFactory
 
     class MyFactory(GenFactory):
         generators = {str: lambda: "Always same"}
@@ -227,7 +227,7 @@ def test_custom():
 
 
 def test_ctx():
-    from mixer.main import LOGGER
+    from forkmixer.main import LOGGER
 
     mixer = Mixer()
     level = LOGGER.level

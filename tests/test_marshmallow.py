@@ -27,7 +27,7 @@ class Pet(ma.Schema):
 
 @pytest.fixture
 def mixer():
-    from mixer.backend.marshmallow import Mixer
+    from forkmixer.backend.marshmallow import Mixer
     return Mixer(required=True)
 
 

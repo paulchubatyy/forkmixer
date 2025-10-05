@@ -1,11 +1,19 @@
 .. image:: https://raw.github.com/klen/mixer/develop/docs/_static/logo.png
     :width: 100px
 
-The **Mixer** is a helper to generate instances of Django or SQLAlchemy models.
+ForkMixer
+=========
+
+**ForkMixer** is a fork of the original Mixer project, a helper to generate instances of Django or SQLAlchemy models.
 It's useful for testing and fixture replacement. Fast and convenient test-data
 generation.
 
-Mixer supports:
+.. note::
+
+   This is a fork of the original `Mixer <https://github.com/klen/mixer>`_ project by Kirill Klenov.
+   Original project: https://github.com/klen/mixer
+
+ForkMixer supports:
 
 * Django_;
 * SQLAlchemy_;
@@ -18,34 +26,20 @@ Mixer supports:
 
 .. _badges:
 
-.. image:: https://github.com/klen/mixer/workflows/tests/badge.svg?style=flat-square
-    :target: https://github.com/klen/mixer/actions
-    :alt: Tests Status
-
-.. image:: http://img.shields.io/pypi/v/mixer.svg?style=flat-square
-    :target: https://pypi.python.org/pypi/mixer
-    :alt: Version
-
-.. image:: http://img.shields.io/pypi/dm/mixer.svg?style=flat-square
-    :target: https://pypi.python.org/pypi/mixer
-    :alt: Downloads
-
-.. image:: http://img.shields.io/pypi/l/mixer.svg?style=flat-square
-    :target: https://pypi.python.org/pypi/mixer
+.. image:: http://img.shields.io/pypi/l/forkmixer.svg?style=flat-square
+    :target: https://pypi.python.org/pypi/forkmixer
     :alt: License
 
 .. _documentation:
 
 
-**Docs are available at https://mixer.readthedocs.org/. Pull requests with
-documentation enhancements and/or fixes are awesome and most welcome.**
+**Repository**: https://github.com/paulchubatyy/forkmixer
 
-Описание на русском языке: http://klen.github.io/mixer.html
+**Original Mixer Documentation**: https://mixer.readthedocs.org/
 
 .. important::
 
-   From version 6.2 the Mixer library doesn't support Python 2.
-   The latest version with python<3 support is mixer 6.1.3
+   ForkMixer requires Python 3.7+
 
 
 .. _contents:
@@ -68,13 +62,13 @@ Requirements
 Installation
 =============
 
-**Mixer** should be installed using pip: ::
+**ForkMixer** should be installed using pip: ::
 
-    pip install mixer
+    pip install forkmixer
 
 Or using uv (recommended): ::
 
-    uv pip install mixer
+    uv pip install forkmixer
 
 
 Development
@@ -88,8 +82,8 @@ For development, it's recommended to use `uv <https://github.com/astral-sh/uv>`_
     curl -LsSf https://astral.sh/uv/install.sh | sh
 
     # Clone the repository
-    git clone https://github.com/klen/mixer
-    cd mixer
+    git clone https://github.com/paulchubatyy/forkmixer
+    cd forkmixer
 
     # Install dependencies (creates .venv and installs all dependencies)
     uv sync --all-extras
@@ -127,7 +121,7 @@ Quick example:
 
 .. code-block:: python
 
-    from mixer.backend.django import mixer
+    from forkmixer.backend.django import mixer
     from customapp.models import User, UserMessage
 
     # Generate a random user
@@ -158,7 +152,7 @@ Quick example:
 
 .. code-block:: python
 
-    from mixer.backend.flask import mixer
+    from forkmixer.backend.flask import mixer
     from models import User, UserMessage
 
     mixer.init_app(self.app)
@@ -192,7 +186,7 @@ For support this scheme, just create your own mixer class, like this:
 
 .. code-block:: python
 
-    from mixer.backend.sqlalchemy import Mixer
+    from forkmixer.backend.sqlalchemy import Mixer
 
     class MyOwnMixer(Mixer):
 
@@ -210,7 +204,7 @@ Example of initialization:
 
 .. code-block:: python
 
-    from mixer.backend.sqlalchemy import Mixer
+    from forkmixer.backend.sqlalchemy import Mixer
 
     ENGINE = create_engine('sqlite:///:memory:')
     BASE = declarative_base()
@@ -230,7 +224,7 @@ Example usage:
 
 .. code-block:: python
 
-    from mixer.backend.mongoengine import mixer
+    from forkmixer.backend.mongoengine import mixer
 
     class User(Document):
         created_at = DateTimeField(default=datetime.datetime.now)
@@ -253,7 +247,7 @@ Example usage:
 
 .. code-block:: python
 
-    from mixer.backend.marshmallow import mixer
+    from forkmixer.backend.marshmallow import mixer
     import marshmallow as ma
 
     class User(ma.Schema):
@@ -276,7 +270,7 @@ Quick example:
 
 .. code-block:: python
 
-    from mixer.main import mixer
+    from forkmixer.main import mixer
 
     class Test:
         one = int
@@ -300,7 +294,7 @@ database. For preventing this behavior init `mixer` manually:
 
 .. code-block:: python
 
-    from mixer.backend.django import Mixer
+    from forkmixer.backend.django import Mixer
 
     mixer = Mixer(commit=False)
 
@@ -309,7 +303,7 @@ Or you can temporary switch context use the mixer as context manager:
 
 .. code-block:: python
 
-    from mixer.backend.django import mixer
+    from forkmixer.backend.django import mixer
 
     # Will be save to db
     user1 = mixer.blend('auth.user')
@@ -329,7 +323,7 @@ Quick example:
 
 .. code-block:: python
 
-        from mixer.main import mixer
+        from forkmixer.main import mixer
 
         class Test:
             id = int
@@ -353,7 +347,7 @@ Also, you can make your own factory for field types:
 
 .. code-block:: python
 
-    from mixer.backend.django import Mixer, GenFactory
+    from forkmixer.backend.django import Mixer, GenFactory
 
     def get_func(*args, **kwargs):
         return "Always same"
@@ -372,7 +366,7 @@ You can add middleware layers to process generation:
 
 .. code-block:: python
 
-    from mixer.backend.django import mixer
+    from forkmixer.backend.django import mixer
 
     # Register middleware to model
     @mixer.middleware('auth.user')
@@ -398,7 +392,7 @@ creating your own mixer:
 
 .. code-block:: python
 
-    from mixer.backend.django import Mixer
+    from forkmixer.backend.django import Mixer
 
     mixer = Mixer(locale='it')
     mixer.faker.name()          ## u'Acchisio Conte'

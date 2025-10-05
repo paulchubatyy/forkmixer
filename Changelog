@@ -1,4 +1,11 @@
-2022-03-23
+2025-10-04 - ForkMixer v0.1.0
+	* Forked from Mixer 7.2.2 by Paul Chubatyy
+	* Renamed package from 'mixer' to 'forkmixer'
+	* Updated all imports and references
+	* Maintained BSD license with proper attribution
+	* Created FORK_ATTRIBUTION.md documenting fork origin
+
+2022-03-23 - Mixer v7.2.2 (original project)
 	* Django: Support for UUIDField
 
 2021-10-13
