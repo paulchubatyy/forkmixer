@@ -38,7 +38,7 @@ ForkMixer supports:
 
 .. important::
 
-   ForkMixer requires Python 3.7+
+   ForkMixer requires Python 3.10+
 
 
 .. _contents:
@@ -67,7 +67,7 @@ Installation
 
 Or using uv (recommended): ::
 
-    uv pip install forkmixer
+    uv add forkmixer
 
 
 Development
