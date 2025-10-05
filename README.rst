@@ -1,5 +1,4 @@
-.. image:: https://raw.github.com/klen/mixer/develop/docs/_static/logo.png
-    :width: 100px
+.. image:: https://raw.github.com/paulchubatyy/forkmixer/main/docs/_static/logo.png
 
 ForkMixer
 =========
