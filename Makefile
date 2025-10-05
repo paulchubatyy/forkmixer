@@ -27,8 +27,7 @@ clean:
 VERSION?=minor
 # target: release - Bump version
 release:
-	@pip install bump2version
-	@bump2version $(VERSION)
+	@uv run bump2version $(VERSION)
 	@git checkout master
 	@git merge develop
 	@git checkout develop
@@ -47,47 +46,50 @@ patch:
 #  Build package
 # ===============
 
-.PHONY: register
-# target: register - Register module on PyPi
-register:
-	@python setup.py register
-
 .PHONY: upload
 # target: upload - Upload module on PyPi
 upload: clean
-	@pip install twine wheel
-	@python setup.py sdist bdist_wheel
-	@twine upload dist/*.whl || true
-	@twine upload dist/*.gz || true
+	@uv build
+	@uv run twine upload dist/*.whl || true
+	@uv run twine upload dist/*.tar.gz || true
 
 .PHONY: docs
 # target: docs - Compile the docs
-docs: docs
-	@$(VIRTUAL_ENV)/bin/pip install sphinx
-	python setup.py build_sphinx --source-dir=docs/ --build-dir=docs/_build --all-files
-	# python setup.py upload_sphinx --upload-dir=docs/_build/html
+docs: $(VIRTUAL_ENV)
+	@uv run sphinx-build -b html docs/ docs/_build/html
 
 
 # =============
 #  Development
 # =============
 
-VIRTUAL_ENV 	?= $(CURDIR)/env
-$(VIRTUAL_ENV): requirements.txt requirements-tests.txt
-	@[ -d $(VIRTUAL_ENV) ]	|| python -m venv $(VIRTUAL_ENV)
-	@$(VIRTUAL_ENV)/bin/pip install -e .[tests]
+VIRTUAL_ENV 	?= $(CURDIR)/.venv
+
+.PHONY: install
+# target: install - Install project dependencies with uv
+install:
+	@command -v uv >/dev/null 2>&1 || { echo "uv is not installed. Please install it first: https://github.com/astral-sh/uv"; exit 1; }
+	@uv sync --extra tests
+
+.PHONY: dev
+# target: dev - Setup development environment
+dev: install
+
+$(VIRTUAL_ENV): pyproject.toml
+	@command -v uv >/dev/null 2>&1 || { echo "uv is not installed. Please install it first: https://github.com/astral-sh/uv"; exit 1; }
+	@uv sync --extra tests
 	@touch $(VIRTUAL_ENV)
 
 TEST=tests
 .PHONY: t
 # target: t - Runs tests
 t: clean $(VIRTUAL_ENV)
-	$(VIRTUAL_ENV)/bin/py.test $(TEST) -s
+	uv run pytest $(TEST) -s
 
 .PHONY: audit
 # target: audit - Audit code
-audit:
-	@pylama $(MODULE) -i E501
+audit: $(VIRTUAL_ENV)
+	@uv run pylama $(MODULE) -i E501
 
 .PHONY: serve
 # target: serve - Run HTTP server with compiled docs

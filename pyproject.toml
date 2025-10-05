@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mixer"
+version = "7.2.2"
+description = "Mixer -- Is a fixtures replacement. Supported Django ORM, SqlAlchemy ORM, Mongoengine ODM and custom python objects."
+readme = "README.rst"
+license = {text = "BSD"}
+authors = [
+    {name = "Kirill Klenov", email = "horneds@gmail.com"}
+]
+keywords = ["django", "flask", "sqlalchemy", "testing", "mock", "stub", "mongoengine", "data"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Utilities",
+]
+requires-python = ">=3.7"
+dependencies = [
+    "Faker>=5.4.0,<12.1",
+]
+
+[project.optional-dependencies]
+tests = [
+    "Django>=3.0",
+    "Flask>=1.0",
+    "Marshmallow>=3.9",
+    "SQLAlchemy>=1.1.4",
+    "flask-sqlalchemy>=2.1",
+    "mongoengine>=0.10.1",
+    "peewee>=3.7.0",
+    "pony>=0.7",
+    "pytest",
+]
+postgres = [
+    "psycopg2-binary>=2.8.4",
+]
+
+[project.urls]
+Homepage = "https://github.com/klen/mixer"
+Documentation = "https://mixer.readthedocs.org"
+"Source code" = "https://github.com/klen/mixer"
+"Issue tracker" = "https://github.com/klen/mixer"
+
+[tool.setuptools]
+zip-safe = false
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["mixer*"]
+
+[tool.pytest.ini_options]
+addopts = "-xsv"
+
+[tool.pylama]
+linters = "pycodestyle,pyflakes,mccabe"
+
+[[tool.pylama.files]]
+path = "tests/*"
+ignore = "D"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=7.0",
+    "bump2version>=1.0",
+    "sphinx>=4.0",
+    "pylama>=8.0",
+    "setuptools>=65.0",
+]

@@ -16,32 +16,25 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9, '3.10']
+        python-version: [3.7, 3.8, 3.9, '3.10', '3.11']
 
     steps:
     - name: Checkout changes
       uses: actions/checkout@v2
 
+    - name: Install uv
+      uses: astral-sh/setup-uv@v4
+      with:
+        enable-cache: true
+
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@main
-      with:
-        python-version: ${{ matrix.python-version }}
+      run: uv python install ${{ matrix.python-version }}
 
-    - name: Use cache
-      id: cache-env
-      uses: actions/cache@v2
-      with:
-        path: env
-        key: ${{ runner.os }}-env-${{ matrix.python-version }}-${{ hashFiles('requirements.txt', 'requirements-tests.txt') }}
-
-    - name: Setup requirements
-      run: |
-        python -m venv env
-        env/bin/pip install -e .[tests]
-      if: steps.cache-env.outputs.cache-hit != 'true'
+    - name: Install dependencies
+      run: uv sync --extra tests
 
     - name: Test with pytest
-      run: env/bin/pytest tests
+      run: uv run pytest tests
 
   notify:
     runs-on: ubuntu-latest

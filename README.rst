@@ -72,6 +72,42 @@ Installation
 
     pip install mixer
 
+Or using uv (recommended): ::
+
+    uv pip install mixer
+
+
+Development
+============
+
+For development, it's recommended to use `uv <https://github.com/astral-sh/uv>`_ for fast dependency management.
+
+**Setup development environment**: ::
+
+    # Install uv if you haven't already
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+
+    # Clone the repository
+    git clone https://github.com/klen/mixer
+    cd mixer
+
+    # Install dependencies (creates .venv and installs all dependencies)
+    uv sync --all-extras
+
+    # Or use make
+    make install
+
+**Run tests**: ::
+
+    uv run pytest tests/
+
+    # Or use make
+    make t
+
+**Run specific tests**: ::
+
+    uv run pytest tests/test_main.py
+
 
 Usage
 =====

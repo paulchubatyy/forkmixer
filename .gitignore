@@ -7,7 +7,7 @@
 /.coverage
 /.env3
 /env
-/.python-version
+/.venv
 /.ropeproject
 /.stuff
 /.tox
@@ -16,3 +16,7 @@
 dist
 docs/_build
 .pytest_cache
+
+# uv
+uv.lock
+.python-version
