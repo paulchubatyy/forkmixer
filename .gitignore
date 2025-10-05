@@ -1,5 +1,6 @@
 *.pyc
-*.txt
+/*.txt
+todo.txt
 /.env
 /.idea
 /*.egg-info
@@ -12,11 +13,9 @@
 /.stuff
 /.tox
 /build
-/todo.txt
 dist
 docs/_build
 .pytest_cache
 
 # uv
-uv.lock
 .python-version
