@@ -24,11 +24,14 @@ clean:
 # ==============
 
 .PHONY: release
-# target: release - Bump version using semantic-release
+# target: release - Bump version, create tag, and push (triggers GitHub Actions to publish to PyPI)
 release:
+	@echo "Running semantic-release to bump version and create tag..."
 	@uv run semantic-release version
+	@echo "Pushing changes and tags to GitHub..."
 	@git push
 	@git push --tags
+	@echo "✓ Release complete! GitHub Actions will now build and publish to PyPI."
 
 .PHONY: version-check
 # target: version-check - Preview next version without making changes
