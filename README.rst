@@ -49,7 +49,7 @@ ForkMixer supports:
 Requirements
 =============
 
-- Python 3.7+
+- Python 3.10+
 - Django (5.1+) for Django ORM support;
 - Flask-SQLALchemy for SQLAlchemy ORM support and integration as Flask application;
 - Faker >= 0.7.3
